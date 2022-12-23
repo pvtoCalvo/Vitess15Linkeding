@@ -1,0 +1,47 @@
+kind: Service 
+apiVersion: v1 
+metadata:
+  name: vitess-mysql
+  namespace: vitess
+spec:
+  type: LoadBalancer
+  selector:
+    planetscale.com/component: vtgate
+  ports:
+    - name: mysql
+      port: 3306 
+      targetPort: 3306
+---
+kind: Service 
+apiVersion: v1 
+metadata:
+  name: vitess-vtctld
+  namespace: vitess
+spec:
+  type: LoadBalancer
+  selector:
+    planetscale.com/component: vtctld
+  ports:
+    - name: vtctld1
+      port: 15000 
+      targetPort: 15000
+    - name: vtctld2
+      port: 15999 
+      targetPort: 15999
+---
+kind: Service 
+apiVersion: v1 
+metadata:
+  name: vitess-vtadmin
+  namespace: vitess
+spec:
+  type: LoadBalancer
+  selector:
+    planetscale.com/component: vtadmin
+  ports:
+    - name: vtadmin1
+      port: 14000 
+      targetPort: 15000
+    - name: vtadmin2
+      port: 14001 
+      targetPort: 15001

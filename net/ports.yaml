@@ -1,0 +1,51 @@
+kind: Service 
+apiVersion: v1 
+metadata:
+  name: vitess-mysql
+  namespace: vitess
+spec:
+  type: NodePort
+  selector:
+    planetscale.com/component: vtgate
+  ports:
+    - nodePort: 30306
+      port: 13306 
+      targetPort: 3306
+---
+kind: Service 
+apiVersion: v1 
+metadata:
+  name: vitess-vtctld
+  namespace: vitess
+spec:
+  type: NodePort
+  selector:
+    planetscale.com/component: vtctld
+  ports:
+    - name: vtctld1
+      nodePort: 30150
+      port: 13150 
+      targetPort: 15000
+    - name: vtctld2
+      nodePort: 30159
+      port: 13159 
+      targetPort: 15999
+---
+kind: Service 
+apiVersion: v1 
+metadata:
+  name: vitess-vtadmin
+  namespace: vitess
+spec:
+  type: NodePort
+  selector:
+    planetscale.com/component: vtadmin
+  ports:
+    - name: vtadmin1
+      nodePort: 30151
+      port: 13151 
+      targetPort: 15000
+    - name: vtadmin2
+      nodePort: 30152
+      port: 13152 
+      targetPort: 15001
