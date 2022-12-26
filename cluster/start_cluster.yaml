@@ -80,7 +80,7 @@ spec:
         recovery-period-block-duration: 5s
     partitionings:
     - equal:
-        parts: 2
+        parts: 1
         shardTemplate:
           databaseInitScriptSecret:
             name: vitess-cluster-config
@@ -93,6 +93,7 @@ spec:
             replicas: 2
             vttablet:
               extraFlags:
+                disable_active_reparents: "true"
                 db_charset: utf8mb4
               resources:
                 limits:
